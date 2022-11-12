@@ -7,7 +7,15 @@ SELECT name FROM employer WHERE location = "St. Louis City";
 DROP TABLE job;
 -- Part 4: Test it with SQL
 SELECT * FROM skill
-INNER JOIN job ON skill.name = job.name;
-WHERE job.skill IS NOT NULL
+LEFT JOIN job_skills
+ON skill.id = job_skills.skills_id
+WHERE job_skills.jobs_id IS NOT NULL
+
 ORDER BY name ASC;
 
+
+--SELECT column_name(s)
+--FROM table1
+--FULL OUTER JOIN table2
+--ON table1.column_name = table2.column_name
+--WHERE condition;

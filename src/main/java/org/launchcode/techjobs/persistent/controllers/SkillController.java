@@ -1,4 +1,5 @@
 package org.launchcode.techjobs.persistent.controllers;
+import org.launchcode.techjobs.persistent.models.Employer;
 import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("skills")
@@ -19,10 +21,8 @@ public class SkillController {
 
     @RequestMapping("")
     public String index(Model model) {
-
-        model.addAttribute("title", "My Skills");
-
-        return "index";
+        model.addAttribute("skills", skillRepository.findAll());
+        return "skills/index";
     }
 //    @GetMapping()
 //    public String returnAllSkills(Model model) {
@@ -34,7 +34,6 @@ public class SkillController {
     @GetMapping("add")
     public String displayAddSkillForm(Model model) {
         model.addAttribute(new Skill());
-        model.addAttribute("skills", skillRepository.findAll());
         return "skills/add";
     }
 
@@ -51,7 +50,16 @@ public class SkillController {
 
     @GetMapping("view/{skillId}")
     public String displayViewSkill(Model model, @PathVariable int skillId) {
+            Optional optSkill = skillRepository.findById(skillId);
+            //Controllers 2.4
+            if (optSkill.isPresent()) {
+                Skill skill = (Skill) optSkill.get();
+                model.addAttribute("skill", skill);
+                return "skill/view";
+            } else {
 
-        return "view";
+                return "redirect:../";
+            }
+        }
     }
-}
+

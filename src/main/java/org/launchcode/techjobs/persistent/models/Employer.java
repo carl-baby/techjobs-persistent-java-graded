@@ -1,11 +1,15 @@
 package org.launchcode.techjobs.persistent.models;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
 public class Employer extends AbstractEntity {
+
     @NotBlank(message = "Field cannot be left blank. Try again.")
     @Size(min = 1, max = 100, message = "Name does not fit.")
     private String location;

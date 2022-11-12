@@ -24,13 +24,6 @@ public class SkillController {
         model.addAttribute("skills", skillRepository.findAll());
         return "skills/index";
     }
-//    @GetMapping()
-//    public String returnAllSkills(Model model) {
-//        model.addAttribute("title", "All Skills");
-//        model.addAttribute("skills", skillRepository.findAll());
-//        return "skills/index";
-//    }
-
     @GetMapping("add")
     public String displayAddSkillForm(Model model) {
         model.addAttribute(new Skill());

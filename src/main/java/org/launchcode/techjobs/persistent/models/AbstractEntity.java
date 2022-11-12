@@ -1,12 +1,24 @@
 package org.launchcode.techjobs.persistent.models;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
-
+@MappedSuperclass
 public abstract class AbstractEntity {
 
+    @Id
+    @GeneratedValue
+    //generated value basically is equal to the auto-increment in mysql
     private int id;
 
+
+    @NotBlank(message = "Field cannot be left blank. Try again.")
+    @Size(min = 1, max = 100, message = "Name does not fit.")
     private String name;
 
     public int getId() {
